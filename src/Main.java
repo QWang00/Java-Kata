@@ -14,5 +14,13 @@ public class Main {
         System.out.println(MapKata.getFirstNonRepeatChar("swiss"));
         System.out.println(MapKata.getFirstNonRepeatSolution("KKK"));
         System.out.println(MapKata.getFirstNonRepeatSolution("swiss"));
+
+        System.out.println("------getMostFrequentNumber----");
+        System.out.println(MapKata.findMostFrequent(Arrays.asList()));
+        System.out.println(MapKata.findMostFrequent(Arrays.asList(2,3,4,5)));
+        System.out.println(MapKata.findMostFrequent(Arrays.asList(2,3,4,2,2)));
+        System.out.println(MapKata.findMostFrequent(Arrays.asList(2,1,2,3,1)));
+
+
     }
 }

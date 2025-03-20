@@ -55,4 +55,74 @@ public class MapKata {
 
         return '_';
     }
+
+//    Find the Most Frequent Element in an int Array, if multiple return any one
+    public static int findMostFrequent(List<Integer> numbers){
+        // check if the list is null or empty, if so,
+        // return integer min value
+        if (numbers.isEmpty()) return Integer.MAX_VALUE;
+
+        // initialize a new hashmap for frequency
+        Map<Integer, Integer> numberCount = new HashMap<>();
+        // iterate through the integer list
+        for(int num : numbers) {
+            // put the number to the map as key, frequency as value
+            numberCount.put(num, numberCount.getOrDefault(num, 0)+1);
+        }
+
+        System.out.println(numberCount);
+
+        List<Integer> valueList = new ArrayList<>();
+        // iterate the map value
+        for(int value : numberCount.values()){
+            valueList.add(value);
+        }
+        // initialize mostValue to the first value
+        int mostValue = valueList.get(0);
+        for (int i = 1; i < valueList.size(); i++) {
+            int currentValue = valueList.get(i);
+            if(currentValue > mostValue) mostValue = currentValue;
+        }
+        System.out.println("the most frequent number is: " + mostValue);
+        // initialize the result key to 0
+        int resultKey = 0;
+        // iterate the map entry
+        for(Map.Entry<Integer, Integer> entry : numberCount.entrySet()) {
+            // check if the current value equals to the biggest number, if yes,
+            if(entry.getValue() == mostValue) {
+                resultKey = entry.getKey();
+                break;
+            }
+            // set the result key to current key
+            // break the loop
+
+        }
+        // return the result key
+        return resultKey;
+
+    }
+
+    public static Optional<Integer> findMostFrequentSolution(int[] nums) {
+        if (nums.length == 0) {
+            return Optional.empty(); // Return empty if no elements exist
+        }
+
+        HashMap<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        int maxFreq = 0;
+        int mostFrequentElement = nums[0];
+
+        for (var entry : freqMap.entrySet()) {
+            if (entry.getValue() > maxFreq) {
+                maxFreq = entry.getValue();
+                mostFrequentElement = entry.getKey();
+            }
+        }
+
+        return Optional.of(mostFrequentElement);
+    }
+
 }
