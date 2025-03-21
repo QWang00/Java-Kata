@@ -125,4 +125,39 @@ public class MapKata {
         return Optional.of(mostFrequentElement);
     }
 
+    // Check if two strings are anagrams (same characters with same frequency), ignore cases
+    public static boolean areAnagrams (String str1, String str2){
+        if(!(str1.length() == str2.length())) return false;
+
+        Map<Character, Integer> str1Map = getCharFreqMap(str1);
+        Map<Character, Integer> str2Map = getCharFreqMap(str2);
+
+        return  str1Map.equals(str2Map);
+    }
+
+    private static Map<Character, Integer> getCharFreqMap (String str){
+        Map<Character, Integer> freqMap = new HashMap<>();
+
+        for (char character : str.toCharArray()){
+            character = Character.toLowerCase(character);
+            freqMap.put(character, freqMap.getOrDefault(character, 0)+1);
+        }
+        return freqMap;
+    }
+
+    public static boolean areAnagramsSolution(String str1, String str2) {
+        // Clean both strings: remove non-letter characters and convert to lowercase
+        str1 = str1.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        str2 = str2.replaceAll("[^a-zA-Z]", "").toLowerCase();
+
+        // Early exit if lengths don't match
+        if (str1.length() != str2.length()) return false;
+
+        return getCharFreqMap(str1).equals(getCharFreqMap(str2));
+    }
+
+
+
+
+
 }
