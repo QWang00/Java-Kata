@@ -156,6 +156,34 @@ public class MapKata {
         return getCharFreqMap(str1).equals(getCharFreqMap(str2));
     }
 
+    // Find the First Repeating Element in an int List, If no elements repeat, return Integer.MIN_VALUE
+    // NOTE: HashMap does not guarantee orders so the first repeat element can be any one int.
+    public static int findFirstRepeating (int[] nums){
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums){
+            freqMap.put(num, freqMap.getOrDefault(num, 0)+1);
+        }
+        for(Map.Entry<Integer, Integer> entry : freqMap.entrySet()){
+            int currentValue = entry.getValue();
+            if (currentValue > 1) return entry.getKey();
+        }
+        return Integer.MIN_VALUE;
+
+    }
+
+    public static int findFirstRepeatingSolution(List<Integer> numbers) {
+        Set<Integer> seen = new HashSet<>();
+
+        for (int num : numbers) {
+            if (seen.contains(num)) {
+                return num;
+            }
+            seen.add(num);
+        }
+
+        return Integer.MIN_VALUE;
+    }
+
 
 
 
