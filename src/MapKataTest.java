@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MapKataTest {
     @Nested
@@ -39,5 +40,44 @@ public class MapKataTest {
 
         }
 
+    }
+
+    @Nested
+    class getAllDuplicates{
+        @Test
+        @DisplayName("Should return empty array when int array is empty")
+        public void emptyArray() {
+            int[] nums = new int[]{};
+            int[] result = MapKata.getAllDuplicates(nums);
+            assertTrue(result.length == 0);
+        }
+
+        @Test
+        @DisplayName("Should return empty array when there are no duplicates")
+        public void noDuplicates () {
+            int[] nums = {1,2,3,4};
+            int[] result = MapKata.getAllDuplicates(nums);
+            assertTrue(result.length == 0);
+        }
+
+        @Test
+        @DisplayName("Should return array with single element when there is same element appearing multiple times")
+        public void singleElementDuplicates () {
+            int[] nums = {1,1,1,1,1};
+            int[] result = MapKata.getAllDuplicates(nums);
+            //assertEquals(1, result[0]);
+            assertEquals(1, result.length);
+        }
+
+        @Test
+        @DisplayName("Should return array with multi elements when there are multiple elements repeating")
+        public void multiDuplicates () {
+            int[] nums = {1,1,2,2,2,3,3,3,3,6};
+            int[] result = MapKata.getAllDuplicates(nums);
+            //assertEquals(3, result.length);
+            assertEquals(1, result[0]);
+            assertEquals(2, result[1]);
+            assertEquals(3, result[2]);
+        }
     }
 }
