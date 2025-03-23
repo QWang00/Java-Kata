@@ -184,6 +184,23 @@ public class MapKata {
         return Integer.MIN_VALUE;
     }
 
+ //    Find All Duplicates in an int Array
+    public static int[] getAllDuplicates (int[] nums){
+        ArrayList<Integer> duplicateList = new ArrayList<>();
+        int[] duplicateArray = new int[]{};
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0)+1);
+        }
+        System.out.println(freqMap);
+        for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()){
+            if(entry.getValue() >1) duplicateList.add(entry.getKey());
+        }
+        int[] arr = duplicateList.stream().mapToInt(Integer::intValue).toArray();
+
+        return arr;
+    }
+
 
 
 
