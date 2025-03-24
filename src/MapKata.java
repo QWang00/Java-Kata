@@ -1,3 +1,6 @@
+import jdk.jfr.Frequency;
+
+import java.sql.Array;
 import java.util.*;
 
 public class MapKata {
@@ -187,12 +190,12 @@ public class MapKata {
  //    Find All Duplicates in an int Array
     public static int[] getAllDuplicates (int[] nums){
         ArrayList<Integer> duplicateList = new ArrayList<>();
-        int[] duplicateArray = new int[]{};
         Map<Integer, Integer> freqMap = new HashMap<>();
+
         for (int num : nums) {
             freqMap.put(num, freqMap.getOrDefault(num, 0)+1);
         }
-        System.out.println(freqMap);
+
         for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()){
             if(entry.getValue() >1) duplicateList.add(entry.getKey());
         }
@@ -200,6 +203,63 @@ public class MapKata {
 
         return arr;
     }
+
+//    Find the Character with the Highest Frequency in a String, if multiple, return any. ignore spaces; case-sensitive;
+    public static char getMostFreqChar(String word){
+        // empty: null char
+        if(word.isEmpty()) return '\0';
+        // trim the string
+        String trimmed = word.replaceAll("\\s", "");
+        // iterate the char array, create frequent map
+        Map<Character, Integer> freqMap = new HashMap<>();
+        for (char character : trimmed.toCharArray()){
+            freqMap.put(character, freqMap.getOrDefault(character, 0)+1);
+        }
+        // initialize the result to be the first char
+        char result = trimmed.toCharArray()[0];
+        // iterate the map, find the value with the biggest number in the map and its key (last one)
+        for (Map.Entry<Character, Integer> entry : freqMap.entrySet()){
+            int highestValue = 0;
+            int currentValue = entry.getValue();
+            char currentKey = entry.getKey();
+            if(currentValue > highestValue) {
+                highestValue = currentValue;
+                result = currentKey;
+            }
+        }
+        // return the key
+        return result;
+
+    }
+
+    public static char getMostFreqCharSolution(String input) {
+        if (input == null || input.isEmpty()) {
+            return '\0'; // return null character if empty
+        }
+
+        Map<Character, Integer> freqMap = new HashMap<>();
+
+        for (char c : input.toCharArray()) {
+            if (c == ' ') continue; // skip spaces
+            freqMap.put(c, freqMap.getOrDefault(c, 0) + 1);
+        }
+
+        char mostFreqChar = '\0';
+        int maxFreq = 0;
+
+        for (Map.Entry<Character, Integer> entry : freqMap.entrySet()) {
+            if (entry.getValue() > maxFreq) {
+                maxFreq = entry.getValue();
+                mostFreqChar = entry.getKey();
+            }
+        }
+
+        return mostFreqChar;
+    }
+
+
+
+
 
 
 
