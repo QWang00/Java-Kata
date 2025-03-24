@@ -2,8 +2,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MapKataTest {
     @Nested
@@ -78,6 +79,50 @@ public class MapKataTest {
             assertEquals(1, result[0]);
             assertEquals(2, result[1]);
             assertEquals(3, result[2]);
+        }
+    }
+
+    @Nested
+    class getMostFreqChar{
+        @Test
+        @DisplayName("Should return null char when the string is empty")
+        public void emptyString () {
+            String word = "";
+            char result = MapKata.getMostFreqChar(word);
+            assertEquals('\0', result);
+        }
+
+        @Test
+        @DisplayName("Should treat uppercase and lowercase characters as different")
+        public void differentCases(){
+            String word = "aAaAA";
+            char result = MapKata.getMostFreqChar(word);
+            assertEquals('A', result);
+            assertNotEquals('a', result);
+        }
+
+        @Test
+        @DisplayName("Should ignore spaces when determining the most frequent character")
+        public void spacesExist(){
+            String word = "a b c d ";
+            char result = MapKata.getMostFreqChar(word);
+            assertNotEquals(' ', result);
+        }
+
+        @Test
+        @DisplayName("Should return the single most frequent character when only one exists")
+        public void singleMostFreq(){
+            String word = "abbc";
+            char result = MapKata.getMostFreqChar(word);
+            assertEquals('b', result);
+        }
+
+        @Test
+        @DisplayName("Should return any of the most frequent characters if there's a tie")
+        public void multiMostFrequent (){
+            String word = "aabb";
+            char result = MapKata.getMostFreqChar(word);
+            assertTrue(result == 'a' || result == 'b');
         }
     }
 }
