@@ -142,7 +142,7 @@ public class MapKata {
         Map<Character, Integer> freqMap = new HashMap<>();
 
         for (char character : str.toCharArray()){
-            character = Character.toLowerCase(character);
+            character = java.lang.Character.toLowerCase(character);
             freqMap.put(character, freqMap.getOrDefault(character, 0)+1);
         }
         return freqMap;
@@ -217,9 +217,9 @@ public class MapKata {
         }
         // initialize the result to be the first char
         char result = trimmed.toCharArray()[0];
+        int highestValue = 0;
         // iterate the map, find the value with the biggest number in the map and its key (last one)
         for (Map.Entry<Character, Integer> entry : freqMap.entrySet()){
-            int highestValue = 0;
             int currentValue = entry.getValue();
             char currentKey = entry.getKey();
             if(currentValue > highestValue) {
