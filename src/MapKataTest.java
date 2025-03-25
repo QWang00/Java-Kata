@@ -1,14 +1,11 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MapKataTest {
     @Nested
-    class findFirstRepeating {
+    class FindFirstRepeating {
         @Test
         @DisplayName("Should return integer min value when there is no repeating element")
         public void noRepeating() {
@@ -44,7 +41,7 @@ public class MapKataTest {
     }
 
     @Nested
-    class getAllDuplicates{
+    class GetAllDuplicates{
         @Test
         @DisplayName("Should return empty array when int array is empty")
         public void emptyArray() {
@@ -83,7 +80,7 @@ public class MapKataTest {
     }
 
     @Nested
-    class getMostFreqChar{
+    class GetMostFreqChar{
         @Test
         @DisplayName("Should return null char when the string is empty")
         public void emptyString () {
@@ -123,6 +120,71 @@ public class MapKataTest {
             String word = "aabb";
             char result = MapKata.getMostFreqChar(word);
             assertTrue(result == 'a' || result == 'b');
+        }
+    }
+
+    @Nested
+    class GetFirstUniqueCharIndex {
+
+        @Test
+        @DisplayName("Should return -1 when the input is null")
+        void nullInput(){
+            String input = null;
+            int result = MapKata.getFirstUniqueCharIndex(input);
+            assertEquals(-1, result);
+
+        }
+
+        @Test
+        @DisplayName("Should return -1 when the input is empty")
+        void emptyInput(){
+            String input = "";
+            int result = MapKata.getFirstUniqueCharIndex(input);
+            assertEquals(-1, result);
+        }
+
+        @Test
+        @DisplayName("Should return -1 when there are no unique characters")
+        void noUniqueChar(){
+            String input = "aaabbb";
+            int result = MapKata.getFirstUniqueCharIndex(input);
+            assertEquals(-1, result);
+        }
+
+        @Test
+        @DisplayName("Should consider spaces when determining the unique character")
+        void spacesExists(){
+            String input = " aaa";
+            int result = MapKata.getFirstUniqueCharIndex(input);
+            assertEquals(0, result);
+        }
+
+        @Test
+        @DisplayName("Should treat upper cases and lower cases characters different")
+        void differentCases(){
+            String input1 = "aA";
+            String input2 = "Aa";
+            int result1 = MapKata.getFirstUniqueCharIndex(input1);
+            int result2 = MapKata.getFirstUniqueCharIndex(input2);
+            assertEquals(0, result1);
+            assertEquals(0, result2);
+
+        }
+
+        @Test
+        @DisplayName("Should return the index of the only unique character when it exists")
+        void singleUnique(){
+            String input = "abbbb";
+            int result = MapKata.getFirstUniqueCharIndex(input);
+            assertEquals(0, result);
+        }
+
+        @Test
+        @DisplayName("Should return the index of the first unique character when multiple unique characters exist")
+        void multiUnique(){
+            String input = "abc";
+            int result = MapKata.getFirstUniqueCharIndex(input);
+            assertEquals(0, result);
         }
     }
 }
