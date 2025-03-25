@@ -257,6 +257,57 @@ public class MapKata {
         return mostFreqChar;
     }
 
+//    Find the Index of the First Non-Repeating Character in a string, if not exists, return -1; case-sensitive and include spaces
+    public static int getFirstUniqueCharIndex(String input){
+        // empty or null input, return -1
+        if(input==null || input.isEmpty()) return -1;
+        // create a frequency map to count character frequencies
+        Map<Character, Integer> freqMap = new HashMap<>();
+        for(char character : input.toCharArray()){
+            freqMap.put(character, freqMap.getOrDefault(character, 0)+1);
+        }
+
+        char key = '\0';
+        // iterate the frequency map to find the first key with the value as 1
+        for (Map.Entry<Character, Integer> entry : freqMap.entrySet()){
+            if(entry.getValue() == 1) {
+                // if found, set the key
+                key = entry.getKey();
+                // iterate the string, found the index of the key found.
+                for (int i = 0; i < input.length(); i++) {
+                    char current = input.charAt(i);
+                    if(key == current){
+                        return i;
+                    }
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    public static int getFirstUniqueCharIndexSolution(String input) {
+        if (input == null || input.isEmpty()) {
+            return -1;
+        }
+
+        Map<Character, Integer> freqMap = new HashMap<>();
+
+        // First pass: count character frequencies
+        for (char c : input.toCharArray()) {
+            freqMap.put(c, freqMap.getOrDefault(c, 0) + 1);
+        }
+
+        // Second pass: find the first character with frequency 1
+        for (int i = 0; i < input.length(); i++) {
+            if (freqMap.get(input.charAt(i)) == 1) {
+                return i;
+            }
+        }
+
+        return -1; // No unique character found
+    }
+
 
 
 
