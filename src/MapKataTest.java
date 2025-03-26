@@ -1,6 +1,11 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MapKataTest {
@@ -185,6 +190,82 @@ public class MapKataTest {
             String input = "abc";
             int result = MapKata.getFirstUniqueCharIndex(input);
             assertEquals(0, result);
+        }
+    }
+
+    @Nested
+    class GroupAnagrams{
+
+        @Test
+        @DisplayName("Should return empty list when input is empty")
+        void emptyInput(){
+            String[] input = new String[]{};
+            List<List<String>> result = MapKata.groupAnagrams(input);
+            assertTrue(result.isEmpty());
+        }
+
+        @Test
+        @DisplayName("Should return empty list when input string is null")
+        void nullInput(){
+            String[] input = null;
+            List<List<String>> result = MapKata.groupAnagrams(input);
+            assertTrue(result.isEmpty());
+        }
+
+        @Test
+        @DisplayName("Should return empty list when there are no anagrams")
+        void noAnagrams(){
+            String[] input = {"a", "b", "C"};
+            List<List<String>> result = MapKata.groupAnagrams(input);
+            assertTrue(result.isEmpty());
+        }
+
+        @Test
+        @DisplayName("Should return single list when there are only one group of anagrams")
+        void singleAnagrams(){
+            String[] input = {"eat", "tea", "help"};
+            List<List<String>> result = MapKata.groupAnagrams(input);
+            List<List<String>> expected = new ArrayList<>(Arrays.asList(new ArrayList<>(Arrays.asList("eat", "tea"))));
+            assertEquals(expected, result);
+        }
+
+        @Test
+        @DisplayName("Should return a list with multiple lists of anagrams when there are multiple groups of anagrams")
+        void multiAnagrams(){
+            String[] input = {"eat", "tea", "help", "pelh"};
+            List<List<String>> result = MapKata.groupAnagrams(input);
+            List<List<String>> expected = new ArrayList<>(Arrays.asList(
+                    new ArrayList<>(Arrays.asList("eat", "tea")),
+                    new ArrayList<>(Arrays.asList("help", "pelh"))
+            ));
+            assertEquals(expected, result);
+        }
+
+        @Test
+        @DisplayName("Should treat duplicate words as anagrams")
+        void duplicateWords(){
+            String[] input = {"eat", "eat", "help"};
+            List<List<String>> result = MapKata.groupAnagrams(input);
+            List<List<String>> expected = new ArrayList<>(Arrays.asList(new ArrayList<>(Arrays.asList("eat", "eat"))));
+            assertEquals(expected, result);
+        }
+
+        @Test
+        @DisplayName("Should treat lower and upper cases characters as different")
+        void differentCasesExist(){
+            String[] input = {"Eat", "tea", "Help", "pleH"};
+            List<List<String>> result = MapKata.groupAnagrams(input);
+            List<List<String>> expected = new ArrayList<>(Arrays.asList(new ArrayList<>(Arrays.asList("Help", "pleH"))));
+            assertEquals(expected, result);
+        }
+
+        @Test
+        @DisplayName("Should consider spaces when determining anagrams")
+        void spacesExist(){
+            String[] input = {"E at", "t aE", "help"};
+            List<List<String>> result = MapKata.groupAnagrams(input);
+            List<List<String>> expected = new ArrayList<>(Arrays.asList(new ArrayList<>(Arrays.asList("E at", "t aE"))));
+            assertEquals(expected, result);
         }
     }
 }
