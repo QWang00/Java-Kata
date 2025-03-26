@@ -308,6 +308,60 @@ public class MapKata {
         return -1; // No unique character found
     }
 
+//    Group Words That Are Anagrams, case-sensitive and include spaces
+    public static List<List<String>> groupAnagrams(String[] words){
+        // empty or null : return empty list
+        if(words== null || words.length == 0 ) return new ArrayList<>();
+
+        List<List<String>> result = new ArrayList<>();
+        List<Map<Character, Integer>> mapList = new ArrayList<>();
+
+        // iterate input array to create frequency maps for each word, and add all maps to a list
+        for(String word : words){
+            Map<Character, Integer> freqMap = new HashMap<>();
+            for(char character : word.toCharArray()){
+                freqMap.put(character, freqMap.getOrDefault(character, 0) +1);
+            }
+            mapList.add(freqMap);
+        }
+
+        // iterate each map to check if there are any map equal to it, if there are, add them to the result list
+        for (int i = 0; i < mapList.size(); i++) {
+            for (int j = i+1; j < mapList.size(); j++) {
+                if(mapList.get(i).equals(mapList.get(j))) result.add(new ArrayList<>(Arrays.asList(words[i], words[j])));
+            }
+        }
+        return result;
+    }
+
+    public static List<List<String>> groupAnagramsSolution(String[] words) {
+        Map<String, List<String>> anagramMap = new HashMap<>();
+
+        for (String word : words) {
+            // Sort the characters of the word to get the key
+            char[] chars = word.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars); // e.g., "eat" → "aet"
+
+            // Group by anagram key
+            if (!anagramMap.containsKey(key)) {
+                anagramMap.put(key, new ArrayList<>());
+            }
+
+            anagramMap.get(key).add(word);
+        }
+
+        // Return grouped values
+        return new ArrayList<>(anagramMap.values());
+//        Loop Breakdown
+//        Step	Word	Sorted Key	Map State (anagramMap)
+//        1	"eat"	"aet"	{ "aet": ["eat"] }
+//        2	"tea"	"aet"	{ "aet": ["eat", "tea"] }
+//        3	"tan"	"ant"	{ "aet": ["eat", "tea"], "ant": ["tan"] }
+//        4	"ate"	"aet"	{ "aet": ["eat", "tea", "ate"], "ant": ["tan"] }
+//        5	"nat"	"ant"	{ "aet": ["eat", "tea", "ate"], "ant": ["tan", "nat"] }
+//        6	"bat"	"abt"	{ "aet": ["eat", "tea", "ate"], "ant": ["tan", "nat"], "abt": ["bat"]
+    }
 
 
 
