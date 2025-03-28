@@ -1,6 +1,4 @@
-import jdk.jfr.Frequency;
 
-import java.sql.Array;
 import java.util.*;
 
 public class MapKata {
@@ -362,12 +360,5 @@ public class MapKata {
 //        5	"nat"	"ant"	{ "aet": ["eat", "tea", "ate"], "ant": ["tan", "nat"] }
 //        6	"bat"	"abt"	{ "aet": ["eat", "tea", "ate"], "ant": ["tan", "nat"], "abt": ["bat"]
     }
-
-
-
-
-
-
-
 
 }
