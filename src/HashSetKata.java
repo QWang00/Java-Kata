@@ -31,4 +31,10 @@ public class HashSetKata {
         return result;
     }
 
+//    Find Missing Numbers in a Range
+public static List<Integer> findMissingNumbers(int[] nums, int n){
+        return null;
+}
+
+
 }
